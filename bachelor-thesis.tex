@@ -27,7 +27,7 @@
 \input{./meta/header}									% set document header and page layout
 \input{./meta/hyphenation}								% define hyphenation rules
 
-\setcounter{chapter}{-1}								% reset chapter counter to start with 0
+\setcounter{chapter}{0}									% reset chapter counter to start with 1
 
 \addbibresource{literature.bib}							% import bibliography
 
@@ -71,11 +71,7 @@
 
 	\mainmatter
 	
-	\input{./chapters/00/00_introduction-and-motivation}
-	\input{./chapters/01/00_chapter}
-	\input{./chapters/template/template}				% template for new chapters, remove from main
-	\input{./chapters/example/example}					% example chapter, remove from main
-	\input{./chapters/99/00_ending-and-conclusion}
+	\input{./chapters/01/_chapter.tex}
 
 	%---------------------------------------------------------------------------
 	% BIBLIOGRAPHY
@@ -107,6 +103,6 @@
 	\renewcommand{\chaptername}{Anhang}
 	\pagenumbering{Roman}
 	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-	\input{./chapters/AA/00_attachment}
+	\input{./chapters/AA/_attachment.tex}
 
 \end{document}
