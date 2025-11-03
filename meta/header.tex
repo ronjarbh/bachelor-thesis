@@ -1,0 +1,123 @@
+% PAGE LAYOUT
+% requires packages from "packages.tex"
+
+
+
+\selectlanguage{ngerman}								% set language to german
+
+\setlength{\parindent}{0em} 							% paragraph indentation to left-justified
+
+\onehalfspacing											% set line spacing to 1.5
+
+\makeatletter
+
+% configure headers
+\def\maxChapterTitleLength{44}							% define maximum length of chapter title in header
+
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{} 	% removes space above \chapter head
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{} 	% removes space above \chapter* head
+\makeatother
+\setlength{\headheight}{14.5pt}							% set header height
+\pagestyle{fancy}										% set page style to fancy
+
+\renewcommand{\chaptermark}[1]{
+	\noexpandarg
+	\StrLen{#1}[\chapterTitleLength]
+
+	\ifthenelse{\chapterTitleLength > \maxChapterTitleLength}{
+		\StrLeft{#1}{\maxChapterTitleLength}[\title]
+        \edef\title{\title \ldots}
+	}{
+		\def\title{#1}
+	}
+
+	\markboth{\title\ -- \chaptername\ \thechapter\ }{}	% set chapter mark
+}
+
+\renewcommand{\sectionmark}[1]{							% set section mark
+	\markright{
+		{\projectShortDescription}
+	}
+}
+
+\fancypagestyle{titlepage}								% set title page style
+{
+	\setcounter{page}{-100000}
+	\fancyhf{}
+	\fancyfootoffset{0pt}
+	\fancyheadoffset{0pt}
+	\renewcommand{\headrulewidth}{0pt}
+}
+
+% set fonts of titles
+\titleformat{\chapter}[display] {\sffamily \huge}{\chaptertitlename\ \thechapter}{-5pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{10pt}
+\titleformat{\section}[display] {\sffamily \tiny}{}{0pt}{\LARGE \thesection\ }
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+\titleformat{\subsection}[display] {\sffamily \tiny}{}{-15pt}{\Large \thesubsection\ }
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
+\titleformat{\subsubsection}[display] {\sffamily \tiny}{}{-15pt}{\large \thesubsubsection\ }
+\titlespacing*{\subsubsection}{0pt}{0pt}{0pt}
+
+% set fonts of table of contents
+\renewcommand{\cftchapfont}{\bf\sffamily}
+\renewcommand{\cftsecfont}{\sffamily}
+\renewcommand{\cftsubsecfont}{\sffamily}
+
+% configure glossary and acronyms
+% -> styles: https://www.dickimaw-books.com/gallery/glossaries-styles/
+\setglossarystyle{altlistgroup}
+\setacronymstyle{long-short}
+
+% set fonts of footnotes
+\renewcommand{\cfttabfont}{\sffamily}
+\renewcommand{\cftfigfont}{\sffamily}
+
+\setcounter{secnumdepth}{3}
+
+% set metadata of document
+\hypersetup{
+	pdfauthor={\firstAuthor},
+	pdftitle={\documentTitle\ -- \documentSubtitle},
+	pdfsubject={\documentSubject \documentYear},
+	pdfkeywords={Betreut von \tutorAName und \tutorBName.}
+}
+
+% set code listings
+\lstset{
+	showspaces=false,
+	showtabs=false,
+	breaklines=true,
+	showstringspaces=false,
+	basicstyle=\ttfamily,
+	frame=lt,
+	rulecolor=\color{gray},
+	framerule=3pt,
+	xleftmargin=6pt,
+}
+
+% set code boxes
+\newtcblisting{codebox}[3][]{%
+	listing engine=minted,
+	minted style=colorful,
+	minted language=#2,
+	minted options={tabsize=2,breaklines,autogobble,linenos,numbersep=3mm},
+	colback=white,
+	colframe=darkgray,
+	listing only,
+	left=5mm,
+	title=\faCode\quad #3,
+	enhanced,
+	overlay={\begin{tcbclipinterior}\fill[lightgray] (frame.south west)
+	rectangle ([xshift=5mm]frame.north west);\end{tcbclipinterior}},
+	#1
+}
+
+% style captions
+\newlength\myx
+\setlength\myx{\textwidth}
+\addtolength\myx{-2\fboxsep}
+\DeclareCaptionFont{white}{\color{white} \sffamily}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\myx}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\renewcommand{\lstlistingname}{Quelltext}

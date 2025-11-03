@@ -1,0 +1,112 @@
+% !TEX root = main.tex
+% !TEX option = --shell-escape
+% MAIN DOCUMENT
+
+% In case of renaming this file:
+% adjust the @default_files attribute in the .latexmkrc file
+
+% change meta text values in ./meta/parameters.tex
+% save chapters and corresponding data in ./chapters/XX/
+% save images in ./images/
+% remove ./example/ from the project root and clear references in this file
+% add imports to ./meta/packages.tex, only if necessary
+
+% version from 2025-03
+
+
+
+\documentclass[a4paper, oneside, 11pt]{book}
+\usepackage[utf8]{inputenc}
+
+\newif\ifdraft
+\draftfalse												% flag: marks document as draft and shows to-do-notes, comment or set to "draftfalse"
+
+\input{./meta/packages}									% import packages
+\input{./meta/parameters}								% set meta parameters
+\input{./meta/commands}									% define custom commands and environments
+\input{./meta/header}									% set document header and page layout
+\input{./meta/hyphenation}								% define hyphenation rules
+
+\setcounter{chapter}{-1}								% reset chapter counter to start with 0
+
+\addbibresource{literature.bib}							% import bibliography
+
+\makeglossaries											% create glossary
+\loadglsentries{./main/glossaries.tex}					% load glossary entries
+
+\DefineBibliographyStrings{ngerman}{					% define bibliography strings for german language:
+    andothers = {\acrshort{etal}}						% - string for \citeauthor of more than three authors
+}
+\setcounter{biburlucpenalty}{9000}						% set url line break penalties for upper case letters in the bibliography
+\setcounter{biburllcpenalty}{9000}						% set url line break penalties for lower case letters in the bibliography
+
+\graphicspath{{images/}}								% set graphics path
+
+\begin{document}
+
+	%-------------------------------------------------------------------------------
+	% FRONT MATTER
+	%-------------------------------------------------------------------------------
+
+	\listoftodos
+	\input{main/cover}
+
+	\ifbool{thesis}{
+		\input{./main/preface}
+		\input{./main/abstract}
+	}{}
+
+	\input{./main/affidavit}
+
+	\tableofcontents
+
+	\printglossary[type=\acronymtype, title=Abkürzungsverzeichnis, style=listdotted]
+	\printglossary[type=\glsdefaulttype, title=Glossar] % style: see meta/header.tex
+
+	\glsresetall
+
+	%-------------------------------------------------------------------------------
+	% CONTENT
+	%-------------------------------------------------------------------------------
+
+	\mainmatter
+	
+	\input{./chapters/00/00_introduction-and-motivation}
+	\input{./chapters/01/00_chapter}
+	\input{./chapters/template/template}				% template for new chapters, remove from main
+	\input{./chapters/example/example}					% example chapter, remove from main
+	\input{./chapters/99/00_ending-and-conclusion}
+
+	%---------------------------------------------------------------------------
+	% BIBLIOGRAPHY
+	%---------------------------------------------------------------------------
+
+	\clearpage\phantomsection
+	\renewcommand{\bibname}{Literaturverzeichnis}		% set bibliography title, default: Literatur
+	\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+	\printbibliography
+
+	\begingroup
+		\clearpage\phantomsection
+		\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+		\listoffigures
+		%\let\clearpage\relax
+		%\let\cleardoublepage\relax
+		\clearpage\phantomsection
+		\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+		\listoftables
+	\endgroup
+	
+	\clearpage
+
+	%---------------------------------------------------------------------------
+	% APPENDIX
+	%---------------------------------------------------------------------------
+
+	\appendix
+	\renewcommand{\chaptername}{Anhang}
+	\pagenumbering{Roman}
+	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+	\input{./chapters/AA/00_attachment}
+
+\end{document}

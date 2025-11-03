@@ -1,0 +1,12 @@
+############################################################
+######################### GIT KEEP #########################
+############################################################
+
+This .gitkeep file exists to ensure, that the directory that
+contains it, can be tracked by the VSC, even if it is empty.
+The goal is to create a complete project structure, although
+not all directories are filled with files.
+
+Please remove this file, if you add files to the directory.
+
+############################################################
