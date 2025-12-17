@@ -38,5 +38,24 @@
 \newcommand{\qbf}[1]{\textbf{\glqq#1\grqq}}
 \newcommand{\qit}[1]{\textit{\glqq#1\grqq}}
 
+
+% default values for easy images
+\newcommand{\defaultImageSize}{0.8}
+\newcommand{\defaultImageFileType}{png}
+
+% easy images
+\newcommand{\image}[4]{
+    \vspace{1em}
+    \begin{figure}[#1]
+        \centering
+        %\frame{    % uncomment to add frame around image
+            \includegraphics[width=#2\textwidth]{#3.\defaultImageFileType}
+        %    }
+        \caption{#4}
+        \label{fig:#3}
+    \end{figure}
+    % \vspace{1em}
+}
+
 % circled numbers
 \newcommand{\circled}[1]{\textcircled{\raisebox{-.9pt}{#1}}}
