@@ -44,72 +44,74 @@
 
 \begin{document}
 
-	%-------------------------------------------------------------------------------
-	% FRONT MATTER
-	%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+% FRONT MATTER
+%-------------------------------------------------------------------------------
 
-	\listoftodos
-	\input{main/cover}
+\listoftodos
+\input{main/cover}
 
-	\ifbool{thesis}{
-		\input{./main/preface}
-		\input{./main/abstract}
-	}{}
+\ifbool{thesis}{
+	\input{./main/preface}
+	\input{./main/abstract}
+}{}
 
-	\input{./main/affidavit}
+\input{./main/affidavit}
 
-	\tableofcontents
+\tableofcontents
+\addtocontents{toc}{\vskip 2em}  % 2em Abstand zwischen Überschrift und erstem Eintrag
 
-	\printglossary[type=\acronymtype, title=Abkürzungsverzeichnis, style=listdotted]
-	\printglossary[type=\glsdefaulttype, title=Glossar] % style: see meta/header.tex
+\printglossary[type=\acronymtype, title=Abkürzungsverzeichnis, style=listdotted]
+\printglossary[type=\glsdefaulttype, title=Glossar] % style: see meta/header.tex
 
-	\glsresetall
+\glsresetall
 
-	%-------------------------------------------------------------------------------
-	% CONTENT
-	%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+% CONTENT
+%-------------------------------------------------------------------------------
 
-	\mainmatter
-	
-	\input{chapters/01/_purpose-and-objectives.tex}
-	\input{chapters/02/_theoretical-foundations.tex}
-	\input{chapters/03/_pre-analysis.tex}
-	\input{chapters/04/_methodology.tex}
-	\input{chapters/05/_analysis-and-results.tex}
-	\input{chapters/06/_discussion.tex}
-	\input{chapters/07/_recommendations.tex}
-	\input{chapters/99/_conclusion-and-outlook.tex}
-	
-	%---------------------------------------------------------------------------
-	% BIBLIOGRAPHY
-	%---------------------------------------------------------------------------
+\mainmatter
 
-	\clearpage\phantomsection
-	\renewcommand{\bibname}{Literaturverzeichnis}		% set bibliography title, default: Literatur
-	\addcontentsline{toc}{chapter}{Literaturverzeichnis}
-	\printbibliography
+\input{chapters/01/_purpose-and-objectives.tex}
+\input{chapters/02/_theoretical-foundations.tex}
+\input{chapters/03/_pre-analysis.tex}
+\addtocontents{toc}{\protect\newpage}
+\input{chapters/04/_methodology.tex}
+\input{chapters/05/_analysis-and-results.tex}
+\input{chapters/06/_discussion.tex}
+\input{chapters/07/_recommendations.tex}
+\input{chapters/99/_conclusion-and-outlook.tex}
 
-	\begingroup
-		\clearpage\phantomsection
-		\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
-		\listoffigures
-		%\let\clearpage\relax
-		%\let\cleardoublepage\relax
-		\clearpage\phantomsection
-		\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
-		\listoftables
-	\endgroup
-	
-	\clearpage
+%---------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%---------------------------------------------------------------------------
 
-	%---------------------------------------------------------------------------
-	% APPENDIX
-	%---------------------------------------------------------------------------
+\clearpage\phantomsection
+\renewcommand{\bibname}{Literaturverzeichnis}		% set bibliography title, default: Literatur
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\printbibliography
 
-	\appendix
-	\renewcommand{\chaptername}{Anhang}
-	\pagenumbering{Roman}
-	\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-	\input{./chapters/AA/_attachment.tex}
+\begingroup
+\clearpage\phantomsection
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+%\let\clearpage\relax
+%\let\cleardoublepage\relax
+\clearpage\phantomsection
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\listoftables
+\endgroup
+
+\clearpage
+
+%---------------------------------------------------------------------------
+% APPENDIX
+%---------------------------------------------------------------------------
+
+\appendix
+\renewcommand{\chaptername}{Anhang}
+\pagenumbering{Roman}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\input{./chapters/AA/_attachment.tex}
 
 \end{document}
