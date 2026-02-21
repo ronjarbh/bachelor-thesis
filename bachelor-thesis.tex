@@ -15,7 +15,7 @@
 
 
 
-\documentclass[a4paper, oneside, 11pt]{book}
+\documentclass[a4paper, twoside, openany, 11pt]{book}
 \usepackage[utf8]{inputenc}
 
 \newif\ifdraft
@@ -26,6 +26,7 @@
 \input{./meta/commands}									% define custom commands and environments
 \input{./meta/header}									% set document header and page layout
 \input{./meta/hyphenation}								% define hyphenation rules
+\input{./meta/print}									% configure print specific settings
 
 \setcounter{chapter}{0}									% reset chapter counter to start with 1
 
@@ -47,6 +48,7 @@
 %-------------------------------------------------------------------------------
 % FRONT MATTER
 %-------------------------------------------------------------------------------
+\frontmatter
 
 \listoftodos
 \input{main/cover}
@@ -57,6 +59,8 @@
 }{}
 
 \input{./main/affidavit}
+
+\cleardoublepage
 
 \tableofcontents
 \addtocontents{toc}{\vskip 2em}  % 2em Abstand zwischen Überschrift und erstem Eintrag
@@ -72,24 +76,27 @@
 
 \mainmatter
 
-\input{chapters/01/_purpose-and-objectives.tex}
-\input{chapters/02/_theoretical-foundations.tex}
-\input{chapters/03/_pre-analysis.tex}
+\startonevenpage\input{chapters/01/_purpose-and-objectives.tex}
+\startonevenpage\input{chapters/02/_theoretical-foundations.tex}
+\startonevenpage\input{chapters/03/_pre-analysis.tex}
 \addtocontents{toc}{\protect\newpage}
-\input{chapters/04/_methodology.tex}
-\input{chapters/05/_analysis-and-results.tex}
-\input{chapters/06/_discussion.tex}
-\input{chapters/07/_recommendations.tex}
-\input{chapters/99/_conclusion-and-outlook.tex}
+\startonevenpage\input{chapters/04/_methodology.tex}
+\startonevenpage\input{chapters/05/_analysis-and-results.tex}
+\startonevenpage\input{chapters/06/_discussion.tex}
+\startonevenpage\input{chapters/07/_recommendations.tex}
+\startonevenpage\input{chapters/99/_conclusion-and-outlook.tex}
 
 %---------------------------------------------------------------------------
 % BIBLIOGRAPHY
 %---------------------------------------------------------------------------
 
+\cleardoublepage
+
 \clearpage\phantomsection
 \renewcommand{\bibname}{Literaturverzeichnis}		% set bibliography title, default: Literatur
 \addcontentsline{toc}{chapter}{Literaturverzeichnis}
 \printbibliography
+\cleardoublepage
 
 \begingroup
 \clearpage\phantomsection
@@ -103,6 +110,7 @@
 \endgroup
 
 \clearpage
+\cleardoublepage
 
 %---------------------------------------------------------------------------
 % APPENDIX
@@ -113,7 +121,9 @@
 \renewcommand{\chaptername}{Anhang}
 \pagenumbering{Roman}
 \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
-\input{./chapters/AA/_expertinterview.tex}
-\input{./chapters/BB/_usabilitytest.tex}
+\raggedbottom										% disable vertical justification for the appendix
+
+\startonevenpage\input{./chapters/AA/_expertinterview.tex}
+\startonevenpage\input{./chapters/BB/_usabilitytest.tex}
 
 \end{document}

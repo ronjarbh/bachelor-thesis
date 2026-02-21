@@ -1,0 +1,21 @@
+% SETTINGS FOR PRINTING
+
+
+
+% swap page margins
+
+\let\tmp\oddsidemargin
+\let\oddsidemargin\evensidemargin
+\let\evensidemargin\tmp
+\reversemarginpar
+
+% manage empty pages
+
+\usepackage{emptypage}
+
+% start new chapters on even pages
+
+\newcommand{\startonevenpage}{
+    \cleardoublepage
+    \ifodd\value{page}\clearpage\null\thispagestyle{empty}\newpage\fi
+}
